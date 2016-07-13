@@ -1,0 +1,5 @@
+---
+- name: restart krb5-kdc
+  service:
+    name: krb5-kdc
+    state: restarted

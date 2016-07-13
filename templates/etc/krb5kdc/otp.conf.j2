@@ -1,0 +1,23 @@
+{% if krb5kdc_otp is defined %}
+{% for otp in krb5kdc_otp %}
+{% if otp.name is defined %}
+    {{ otp.name }} = {
+{% if otp.retries is defined %}
+        retries                         = {{ otp.retries }}
+{% endif %}
+{% if otp.server is defined %}
+        server                          = {{ otp.server }}
+{% endif %}
+{% if otp.secret is defined %}
+        secret                          = {{ otp.secret }}
+{% endif %}
+{% if otp.strip_realm is defined %}
+        strip_realm                     = {{ otp.strip_realm }}
+{% endif %}
+{% if otp.timeout is defined %}
+        timeout                         = {{ otp.timeout }}
+{% endif %}
+      }
+{% endif %}
+{% endfor %}
+{% endif %}

@@ -1,0 +1,76 @@
+---
+- name: install krb5-kdc
+  apt:
+    name: "{{ item }}"
+  with_items: "{{ krb5_kdc_pkg }}"
+  when: krb5-kdc
+  tags:
+    - installation
+    - krb5-kdc
+
+- name: install krb5-admin-server
+  apt:
+    name: "{{ item }}"
+  with_items: "{{ krb5_admin_server_pkg }}"
+  when: krb5-admin-server 
+  tags:
+    - installation
+    - krb5-admin-server
+    
+- name: install krb5 PKINIT plugin
+  apt:
+    name: "{{ item }}"
+  with_items: "{{ krb5_pkinit_pkg }}"
+  when: krb5-pkinit 
+  tags:
+    - installation
+    - krb5-pkinit
+    
+- name: install krb5 OTP plugin
+  apt:
+    name: "{{ item }}"
+  with_items: "{{ krb5_otp_pkg }}"
+  when: krb5-otp
+  tags:
+    - installation
+    - krb5-otp
+
+- name: install krb5 KDC LDAP plugin
+  apt:
+    name: "{{ item }}"
+  with_items: "{{ krb5_kdc_ldap_pkg }}"
+  when: krb5-kdc-ldap
+  tags:
+    - installation
+    - krb5-kdc-ldap
+
+- name: install krb5 KDC LDAP plugin
+  apt:
+    name: "{{ item }}"
+  with_items: "{{ krb5_k5tls_pkg }}"
+  when: krb5-k5tls
+  tags:
+    - installation
+    - krb5-k5tls
+
+- name: install krb5 SALS support
+  apt:
+    name: "{{ item }}"
+  with_items: "{{ krb5_sals_support_pkg }}"
+  when: krb5-sals-support
+  tags:
+    - installation
+    - krb5-sals-support
+
+# tasks file for ansible-krb5
+- name: update kdc.conf configuration file
+  template:
+    src: etc/krb5kdc/kdc.conf.j2
+    dest: /etc/krb5kdc/kdc.conf
+    owner: root
+    group: root
+    mode: 0600
+  notify: restart krb5-kdc
+  tags:
+    - configuration
+    - krb5-kdc-configuration

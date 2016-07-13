@@ -1,0 +1,114 @@
+{% if krb5kdc_kdcdefaults is defined %}
+{% for kdcdefaults in krb5kdc_kdcdefaults %}
+{% if loop.first %}
+{% if kdcdefaults.kdc_max_dgram_reply_size is defined %}
+    kdc_max_dgram_reply_size            = {{ kdcdefaults.kdc_max_dgram_reply_size }}
+{% endif %}
+{% if kdcdefaults.acl_file is defined %}
+    acl_file                            = {{ kdcdefaults.acl_file }}
+{% endif %}
+{% if kdcdefaults.database_module is defined %}
+    database_module                     = {{ kdcdefaults.database_module }}
+{% endif %}
+{% if kdcdefaults.database_name is defined %}
+    database_name                       = {{ kdcdefaults.database_name }}
+{% endif %}
+{% if kdcdefaults.default_principal_expiration is defined %}
+    default_principal_expiration        = {{ kdcdefaults.default_principal_expiration }}
+{% endif %}
+{% if kdcdefaults.default_principal_flags is defined %}
+    default_principal_flags             = {{ kdcdefaults.default_principal_flags | join(",") }}
+{% endif %}
+{% if kdcdefaults.dict_file is defined %}
+    dict_file                           = {{ kdcdefaults.dict_file }}
+{% endif %}
+{% if kdcdefaults.host_based_services is defined %}
+    host_based_services                 = {{ kdcdefaults.host_based_services | join(",") }}
+{% endif %}
+{% if kdcdefaults.iprop_enable is defined %}
+    iprop_enable                        = {{ kdcdefaults.iprop_enable | bool }}
+{% endif %}
+{% if kdcdefaults.iprop_master_ulogsize is defined %}
+    iprop_master_ulogsize               = {{ kdcdefaults.iprop_master_ulogsize }}
+{% endif %}
+{% if kdcdefaults.iprop_slave_poll is defined %}
+    iprop_slave_poll                    = {{ kdcdefaults.iprop_slave_poll }}
+{% endif %}
+{% if kdcdefaults.iprop_port is defined %}
+    iprop_port                          = {{ kdcdefaults.iprop_port }}
+{% endif %}
+{% if kdcdefaults.iprop_resync_timeout is defined %}
+    iprop_resync_timeout                = {{ kdcdefaults.iprop_resync_timeout }}
+{% endif %}
+{% if kdcdefaults.iprop_logfile is defined %}
+    iprop_logfile                       = {{ kdcdefaults.iprop_logfile }}
+{% endif %}
+{% if kdcdefaults.kadmind_port is defined %}
+    kadmind_port                        = {{ kdcdefaults.kadmind_port }}
+{% endif %}
+{% if kdcdefaults.key_stash_file is defined %}
+    key_stash_file                      = {{ kdcdefaults.key_stash_file }}
+{% endif %}
+{% if kdcdefaults.kdc_ports is defined %}
+    kdc_ports                           = {{ kdcdefaults.kdc_ports | join(",") }}
+{% endif %}
+{% if kdcdefaults.kdc_tcp_ports is defined %}
+    kdc_tcp_ports                       = {{ kdcdefaults.kdc_tcp_ports | join(",") }}
+{% endif %}
+{% if kdcdefaults.master_key_name is defined %}
+    master_key_name                     = {{ kdcdefaults.master_key_name }}
+{% endif %}
+{% if kdcdefaults.master_key_type is defined %}
+    master_key_type                     = {{ kdcdefaults.master_key_type }}
+{% endif %}
+{% if kdcdefaults.max_life is defined %}
+    max_life                            = {{ kdcdefaults.max_life }}
+{% endif %}
+{% if kdcdefaults.max_renewable_life is defined %}
+    max_renewable_life                  = {{ kdcdefaults.max_renewable_life }}
+{% endif %}
+{% if kdcdefaults.no_host_referral is defined %}
+    no_host_referral                    = {{ kdcdefaults.no_host_referral | join(",") }}
+{% endif %}
+{% if kdcdefaults.des_crc_session_supported is defined %}
+    des_crc_session_supported           = {{ kdcdefaults.des_crc_session_supported | bool }}
+{% endif %}
+{% if kdcdefaults.reject_bad_transit is defined %}
+    reject_bad_transit                  = {{ kdcdefaults.reject_bad_transit }}
+{% endif %}
+{% if kdcdefaults.restrict_anonymous_to_tgt is defined %}
+    restrict_anonymous_to_tgt           = {{ kdcdefaults.restrict_anonymous_to_tgt | bool }}
+{% endif %}
+{% if kdcdefaults.supported_enctypes is defined %}
+    supported_enctypes                  = {{ kdcdefaults.supported_enctypes | join(":") }}
+{% endif %}
+{% if kdcdefaults.pkinit_allow_upn is defined %}
+    pkinit_allow_upn                    = {{ realm.pkinit_allow_upn | bool }}
+{% endif %}
+{% if kdcdefaults.pkinit_anchors is defined %}
+    pkinit_anchors                      = {{ kdcdefaults.pkinit_anchors | join(",") }}
+{% endif %}
+{% if kdcdefaults.pkinit_dh_min_bits is defined %}
+    pkinit_dh_min_bits                  = {{ realm.pkinit_dh_min_bits }}
+{% endif %}
+{% if kdcdefaults.pkinit_eku_checking is defined %}
+    pkinit_eku_checking                 = {{ realm.pkinit_eku_checking }}
+{% endif %}
+{% if kdcdefaults.pkinit_identity is defined %}
+    pkinit_identity                     = {{ realm.pkinit_identity }}
+{% endif %}
+{% if kdcdefaults.pkinit_kdc_ocsp is defined %}
+    pkinit_kdc_ocsp                     = {{ realm.pkinit_kdc_ocsp }}
+{% endif %}
+{% if kdcdefaults.pkinit_pool is defined %}
+    pkinit_pool                         = {{ realm.pkinit_pool }}
+{% endif %}
+{% if kdcdefaults.pkinit_require_crl_checking is defined %}
+    pkinit_require_crl_checking         = {{ realm.pkinit_require_crl_checking }}
+{% endif %}
+{% if kdcdefaults.pkinit_revoke is defined %}
+    pkinit_revoke                       = {{ realm.pkinit_revoke }}
+{% endif %}
+{% endif %}
+{% endfor %}
+{% endif %}

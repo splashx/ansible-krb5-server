@@ -1,0 +1,77 @@
+---
+
+# the var name should follow the package name standard
+krb5-kdc: true
+krb5-admin-server: true
+krb5-pkinit: true
+krb5-otp: true
+krb5-kdc-ldap: true
+krb5-k5tls: false
+krb5-sals-support: true
+
+# the vars below should follow the name of the control var above, - replaced by _ and append _pkg
+krb5_kdc_pkg:
+  - krb5-kdc
+
+krb5_admin_server_pkg:
+  - krb5-admin-server
+
+krb5_kdc_ldap_pkg:
+  - krb5-kdc-ldap
+  - ldap-utils
+
+krb5_pkinit_pkg:
+  - krb5-pkinit
+  
+krb5_otp_pkg:
+  - krb5-otp
+
+krb5_k5tls_pkg:
+  - krb5-k5tls
+
+krb5_sals_support_pkg:
+  - libsasl2-modules-gssapi-mit
+  - libauthen-sasl-perl
+  - libauthen-sasl-cyrus-perl
+
+# defaults file for ansible-krb5
+# References:
+# http://k5wiki.kerberos.org/wiki/Projects/domain_realm_referrals
+# https://www.ietf.org/proceedings/52/I-D/draft-ietf-krb-wg-kerberos-referrals-02.txt
+# http://bettercrypto.org/static/applied-crypto-hardening.pdf
+# 
+# Notes: the SHA1 phase out moviment doesn't impact this because it uses HMAC  (https://cseweb.ucsd.edu/~mihir/papers/hmac-new.html)
+
+# Below are one-to-one maps of the following sections of kdc.conf
+# Reference: http://web.mit.edu/kerberos/krb5-1.13/doc/admin/conf_files/kdc_conf.html#sections
+
+# [kdcdefaults]	Default values for KDC behavior
+krb5kdc_kdcdefaults:
+    master_key_type: "aes256-cts-hmac-sha1-96"
+    des_crc_session_supported: false
+    restrict_anonymous_to_tgt: true
+    supported_enctypes: 
+            - "aes256-cts-hmac-sha1-96"
+            - "normal camellia256-cts-cmac"
+            - "normal aes128-cts-hmac-sha1-96"
+            - "normal camellia128-cts-cmac"
+            - "normal"
+
+krb5kdc_dbdefaults:
+  - ldap_kerberos_container_dn: "cn=krbContainer,dc=example,dc=com"
+
+krb5kdc_dbmodules:
+  - name: "EXAMPLE.COM"
+    ldap_kdc_dn: "cn=admin,dc=example,dc=com"
+    ldap_kadmind_dn: "cn=admin,dc=example,dc=com"
+    ldap_service_password_file: /etc/krb5kdc/service.keyfile
+    ldap_servers:
+            - "ldaps://ldap01.example.com"
+            - "ldaps://ldap02.example.com"
+    ldap_conns_per_server: 5
+
+krb5kdc_realms:
+  - name: "EXAMPLE.COM"
+    master_key_type: "aes256-cts-hmac-sha1-96"
+    restrict_anonymous_to_tgt: true
+

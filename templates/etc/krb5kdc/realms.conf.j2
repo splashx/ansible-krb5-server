@@ -1,0 +1,113 @@
+{% if krb5kdc_realms is defined %}
+{% for realm in krb5kdc_realms %}
+{% if realm.name is defined %}
+    {{ realm.name }} = {    
+{% if realm.acl_file is defined %}
+    acl_file                            = {{ realm.acl_file }}
+{% endif %}
+{% if realm.database_module is defined %}
+        database_module                 = {{ realm.database_module }}
+{% endif %}
+{% if realm.database_name is defined %}
+        database_name                   = {{ realm.database_name }}
+{% endif %}
+{% if realm.default_principal_expiration is defined %}
+        default_principal_expiration    = {{ realm.default_principal_expiration }}
+{% endif %}
+{% if realm.default_principal_flags is defined %}
+        default_principal_flags         = {{ realm.default_principal_flags| join(",") }}
+{% endif %}
+{% if realm.dict_file is defined %}
+        dict_file                       = {{ realm.dict_file }}
+{% endif %}
+{% if realm.host_based_services is defined %}
+        host_based_services             = {{ realm.host_based_services | join(",") }}
+{% endif %}
+{% if realm.iprop_enable is defined %}
+        iprop_enable                    = {{ realm.iprop_enable | bool }}
+{% endif %}
+{% if realm.iprop_master_ulogsize is defined %}
+        iprop_master_ulogsize           = {{ realm.iprop_master_ulogsize }}
+{% endif %}
+{% if realm.iprop_slave_poll is defined %}
+        iprop_slave_poll                = {{ realm.iprop_slave_poll }}
+{% endif %}
+{% if realm.iprop_port is defined %}
+        iprop_port                      = {{ realm.iprop_port }}
+{% endif %}
+{% if realm.iprop_resync_timeout is defined %}
+        iprop_resync_timeout            = {{ realm.iprop_resync_timeout }}
+{% endif %}
+{% if realm.iprop_logfile is defined %}
+        iprop_logfile                   = {{ realm.iprop_logfile }}
+{% endif %}
+{% if realm.kadmind_port is defined %}
+        kadmind_port                    = {{ realm.kadmind_port }}
+{% endif %}
+{% if realm.key_stash_file is defined %}
+        key_stash_file                  = {{ realm.key_stash_file }}
+{% endif %}
+{% if realm.kdc_ports is defined %}
+        kdc_ports                       = {{ realm.kdc_ports | join(",") }}
+{% endif %}
+{% if realm.kdc_tcp_ports is defined %}
+        kdc_tcp_ports                   = {{ realm.kdc_tcp_ports | join(",") }}
+{% endif %}
+{% if realm.master_key_name is defined %}
+        master_key_name                 = {{ realm.master_key_name }}
+{% endif %}
+{% if realm.master_key_type is defined %}
+        master_key_type                 = {{ realm.master_key_type }}
+{% endif %}
+{% if realm.max_life is defined %}
+        max_life                        = {{ realm.max_life }}
+{% endif %}
+{% if realm.max_renewable_life is defined %}
+        max_renewable_life              = {{ realm.max_renewable_life }}
+{% endif %}
+{% if realm.no_host_referral is defined %}
+        no_host_referral                = {{ realm.no_host_referral | join(",") }}
+{% endif %}
+{% if realm.des_crc_session_supported is defined %}
+        des_crc_session_supported       = {{ realm.des_crc_session_supported | bool }}
+{% endif %}
+{% if realm.reject_bad_transit is defined %}
+        reject_bad_transit              = {{ realm.reject_bad_transit }}
+{% endif %}
+{% if realm.restrict_anonymous_to_tgt is defined %}
+        restrict_anonymous_to_tgt       = {{ realm.restrict_anonymous_to_tgt | bool }}
+{% endif %}
+{% if realm.supported_enctypes is defined %}
+        supported_enctypes              = {{ realm.supported_enctypes | join(":") }}
+{% endif %}
+{% if realm.pkinit_allow_upn is defined %}
+        pkinit_allow_upn                = {{ realm.pkinit_allow_upn | bool }}
+{% endif %}
+{% if realm.pkinit_anchors is defined %}
+        pkinit_anchors                  = {{ realm.pkinit_anchors | join(",") }}
+{% endif %}
+{% if realm.pkinit_dh_min_bits is defined %}
+        pkinit_dh_min_bits              = {{ realm.pkinit_dh_min_bits }}
+{% endif %}
+{% if realm.pkinit_eku_checking is defined %}
+        pkinit_eku_checking             = {{ realm.pkinit_eku_checking }}
+{% endif %}
+{% if realm.pkinit_identity is defined %}
+        pkinit_identity                 = {{ realm.pkinit_identity }}
+{% endif %}
+{% if realm.pkinit_kdc_ocsp is defined %}
+        pkinit_kdc_ocsp                 = {{ realm.pkinit_kdc_ocsp }}
+{% endif %}
+{% if realm.pkinit_pool is defined %}
+        pkinit_pool                     = {{ realm.pkinit_pool }}
+{% endif %}
+{% if realm.pkinit_require_crl_checking is defined %}
+        pkinit_require_crl_checking     = {{ realm.pkinit_require_crl_checking }}
+{% endif %}
+{% if realm.pkinit_revoke is defined %}
+        pkinit_revoke                   = {{ realm.pkinit_revoke }}
+{% endif %}
+    }
+{% endif %}
+{% endfor %}
+{% endif %}

@@ -1,0 +1,71 @@
+{% if krb5kdc_dbmodules_db_module_dir is defined %}
+  db_module_dir = {{ krb5kdc_dbmodules_db_module_dir }}
+{% endif %}
+{% if krb5kdc_dbmodules is defined %}
+{% for dbmodule in krb5kdc_dbmodules %}
+{% if dbmodule.name is defined %}
+    {{ dbmodule.name }} = {
+{% if dbmodule.database_name is defined %}
+        database_name                   = {{ dbmodule.database_name }}
+{% endif %}
+{% if dbmodule.db_library is defined %}
+        db_library                      = {{ dbmodule.db_library }}
+{% endif %}
+{% if dbmodule.db_module_dir is defined %}
+        db_module_dir                   = {{ dbmodule.db_module_dir }}
+{% endif %}
+{% if dbmodule.disable_last_success is defined %}
+        disable_last_success            = {{ dbmodule.disable_last_success }}
+{% endif %}
+{% if dbmodule.disable_lockout is defined %}
+        disable_lockout                 = {{ dbmodule.disable_lockout }}
+{% endif %}
+{% if dbmodule.ldap_conns_per_server is defined %}
+        ldap_conns_per_server           = {{ dbmodule.ldap_conns_per_server }}
+{% endif %}
+{% if dbmodule.ldap_kadmind_dn is defined %}
+        ldap_kadmind_dn                 = {{ dbmodule.ldap_kadmind_dn }}
+{% endif %}
+{% if dbmodule.ldap_kadmind_sasl_authcid is defined %}
+        ldap_kadmind_sasl_authcid       = {{ dbmodule.ldap_kadmind_sasl_authcid }}
+{% endif %}
+{% if dbmodule.ldap_kadmind_sasl_authzid is defined %}
+        ldap_kadmind_sasl_authzid       = {{ dbmodule.ldap_kadmind_sasl_authzid }}
+{% endif %}
+{% if dbmodule.ldap_kadmind_sasl_mech is defined %}
+        ldap_kadmind_sasl_mech          = {{ dbmodule.ldap_kadmind_sasl_mech }}
+{% endif %}
+{% if dbmodule.ldap_kadmind_sasl_realm is defined %}
+        ldap_kadmind_sasl_realm         = {{ dbmodule.ldap_kadmind_sasl_realm }}
+{% endif %}
+{% if dbmodule.ldap_kdc_dn is defined %}
+        ldap_kdc_dn                     = {{ dbmodule.ldap_kdc_dn }}
+{% endif %}
+{% if dbmodule.ldap_kdc_sasl_authcid is defined %}
+        ldap_kdc_sasl_authcid           = {{ dbmodule.ldap_kdc_sasl_authcid }}
+{% endif %}
+{% if dbmodule.ldap_kdc_sasl_authzid is defined %}
+        ldap_kdc_sasl_authzid           = {{ dbmodule.ldap_kdc_sasl_authzid }}
+{% endif %}
+{% if dbmodule.ldap_kdc_sasl_mech is defined %}
+        ldap_kdc_sasl_mech              = {{ dbmodule.ldap_kdc_sasl_mech }}
+{% endif %}
+{% if dbmodule.ldap_kdc_sasl_realm is defined %}
+        ldap_kdc_sasl_realm             = {{ dbmodule.ldap_kdc_sasl_realm }}
+{% endif %}
+{% if dbmodule.ldap_kerberos_container_dn is defined %}
+        ldap_kerberos_container_dn      = {{ dbmodule.ldap_kerberos_container_dn }}
+{% endif %}
+{% if dbmodule.ldap_servers is defined %}
+        ldap_servers                    = {{ dbmodule.ldap_servers | join(",") }}
+{% endif %}
+{% if dbmodule.ldap_service_password_file is defined %}
+        ldap_service_password_file      = {{ dbmodule.ldap_service_password_file }}
+{% endif %}
+{% if dbmodule.unlockiter is defined %}
+        unlockiter                      = {{ dbmodule.unlockiter }}
+{% endif %}
+    }
+{% endif %}
+{% endfor %}
+{% endif %}
