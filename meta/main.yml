@@ -114,7 +114,7 @@ galaxy_info:
   #  - 9.1
   #  - 9.2
   #  - 9.3
-  - name: Ubuntu
+   - name: Ubuntu
   #  versions:
   #  - all
   #  - lucid
@@ -125,11 +125,11 @@ galaxy_info:
   #  - quantal
   #  - raring
   #  - saucy
-    - trusty
+     - trusty
   #  - utopic
   #  - vivid
   #  - wily
-    - xenial
+     - xenial
   #- name: SLES
   #  versions:
   #  - all
