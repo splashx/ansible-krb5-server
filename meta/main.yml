@@ -158,7 +158,7 @@ galaxy_info:
   #  - stretch
   #  - wheezy
   
-  galaxy_tags: [ mit-kerberos, mit, kerberos ]
+  galaxy_tags: [ krb5, mit, kerberos ]
     # List tags for your role here, one per line. A tag is
     # a keyword that describes and categorizes the role.
     # Users find roles by searching for tags. Be sure to
