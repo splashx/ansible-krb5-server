@@ -3,15 +3,14 @@ ansible-krb5
 
 This is a general Kerberos ansible role which installs and configure Kerberos KDC and Kerberos Admin Server and extra modules (PKINIT, OTP, SASL and LDAP support)
 
-The templates are based on krbkdc 1.13 so if you're using a newer version of Kerberos and settings are missing, pull request.
+The templates are based on krbkdc 1.15 so if you're using a newer version of Kerberos and settings are missing, pull request.
 
-If you wish to not install 
+The role will install the requirements for OTP, TLS and PKINIT by default (pass `false` to the plugin variable if not desired).
 
 Requirements
 ------------
 
-The role will install the requirements for SALS, OTP and PKINIT by default. 
-If you're not using these modules, overwrite `krb5_pkg_modules` in the playbook. 
+Tested on Ubuntu 14.x and 16.x and MIT Kerberos 1.15.
 
 Role Variables
 --------------
@@ -20,14 +19,22 @@ The variables have nomenclature `kr5_kdc_[tag]`, where `[tag]` is the bracketles
 
 Note empty defaults here means MIT Kerberos defaults will apply. Check the [documentation](http://web.mit.edu/kerberos/krb5-1.14/doc/admin/conf_files/kdc_conf.html#kdcdefaults) for MIT Kerberos defaults. 
 
+* **KDC and Admin Server**
 * `krb5-kdc`: [default value: `true`]: install the MIT Kerberos Key Server (KDC)
-* `krb5-ldap-plugin`: [default value: `true`]: install the MIT Kerberos key server (KDC) LDAP plugin
 * `krb5-admin-server`: [default value: `true`]: install the MIT Kerberos Admin Server 
+
+
+* **Plugins**
+* `krb5-ldap-plugin`: [default value: `true`]: install the MIT Kerberos key server (KDC) LDAP plugin
 * `krb5-pkinit`: [default value: `true`]: install the PKINIT plugin for MIT Kerberos
 * `krb5-otp`: [default value: `true`]: install the OTP plugin for MIT Kerberos
-* `krb5-k5tls`: [default value: `false`]: install TLS plugin for MIT Kerberos
-* `krb5-sals-support`: [default value: `true`]: install support for SALS with Kerberos
+* `krb5-k5tls`: [default value: `true`]: install TLS plugin for MIT Kerberos
 
+
+* **Extras**
+* `krb5-sals-support`: [default value: `false`]: install support for SALS with Kerberos
+
+* **kdc.conf**
 * `krb5kdc_kdcdefaults.`: maps to MIT Kerberos `[kdcdefaults]` tag (kdc.conf)  
   * `acl_file`: [default value: `""`]  
   * `database_module`: [default value: `""`] 
@@ -155,11 +162,13 @@ none
 Example Playbook
 ----------------
 
-Note the usage of two realms (REALM.COM and REALM2.COM) and how REALM2.COM uses the database_module value "REALM.COM". The realm "REALM.COM" doesn't require explicit value for database_value because the MIT kerberos defaults the value to the realm name. 
+Note the usage of two realms (REALM.COM and REALM2.COM) and how REALM2.COM uses the database_module value "REALM.COM". The realm "REALM.COM" doesn't require explicit value for database_value because the MIT kerberos defaults the value to the realm name (check the MIT Kerberos documentation for details). 
+Also, this playbook doesn't install the Master Server (Admin Server)
 ```
 - hosts: kdc-slave
   become: yes
   vars:
+    krb5-admin-server: false
     krb5kdc_kdcdefaults:
       - kdc_max_dgram_reply_size: 4096
         default_principal_flags:
