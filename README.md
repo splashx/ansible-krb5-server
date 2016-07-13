@@ -1,4 +1,4 @@
-Role Name
+ansible-krb5
 =========
 
 This is a general Kerberos ansible role which installs and configure Kerberos KDC and Kerberos Admin Server and extra modules (PKINIT, OTP, SASL and LDAP support)
