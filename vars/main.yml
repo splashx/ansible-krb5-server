@@ -1,3 +1,2 @@
 ---
-# vars file for ansible-krb5
-
+# vars file for ansible-krb5-server
