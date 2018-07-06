@@ -2,7 +2,7 @@
 - hosts: localhost
   remote_user: root
   vars:
-    krb5-admin-server: false
+    krb5_admin_server: false
     krb5kdc_kdcdefaults:
       - kdc_max_dgram_reply_size: 4096
         default_principal_flags:
