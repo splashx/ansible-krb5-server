@@ -32,7 +32,7 @@ Note empty defaults here means MIT Kerberos defaults will apply. Check the [docu
 
 
 * **Extras**
-* `krb5-sals-support`: [default value: `false`]: install support for SALS with Kerberos
+* `krb5-sasl-support`: [default value: `false`]: install support for SASL with Kerberos
 
 * **kdc.conf**
 * `krb5kdc_kdcdefaults.`: maps to MIT Kerberos `[kdcdefaults]` tag (kdc.conf)  
