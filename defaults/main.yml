@@ -1,15 +1,15 @@
 ---
 
-# the var name should follow the package name standard
-krb5-kdc: true
-krb5-admin-server: true
-krb5-pkinit: true
-krb5-otp: true
-krb5-kdc-ldap: true
-krb5-k5tls: false
-krb5-sasl-support: true
+# the var name controlling the module installation
+krb5_kdc: true
+krb5_admin_server: true
+krb5_pkinit: true
+krb5_otp: true
+krb5_kdc_ldap: true
+krb5_k5tls: false
+krb5_sasl_support: true
 
-# the vars below should follow the name of the control var above, - replaced by _ and append _pkg
+# the vars below should follow the name of the control var above + append _pkg
 krb5_kdc_pkg:
   - krb5-kdc
 

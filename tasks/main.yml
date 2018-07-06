@@ -1,9 +1,9 @@
----
+_---
 - name: install krb5-kdc
   apt:
     name: "{{ item }}"
   with_items: "{{ krb5_kdc_pkg }}"
-  when: krb5-kdc
+  when: krb5_kdc
   tags:
     - installation
     - krb5-kdc
@@ -12,7 +12,7 @@
   apt:
     name: "{{ item }}"
   with_items: "{{ krb5_admin_server_pkg }}"
-  when: krb5-admin-server
+  when: krb5_admin_server
   tags:
     - installation
     - krb5-admin-server
@@ -21,7 +21,7 @@
   apt:
     name: "{{ item }}"
   with_items: "{{ krb5_pkinit_pkg }}"
-  when: krb5-pkinit
+  when: krb5_pkinit
   tags:
     - installation
     - krb5-pkinit
@@ -30,7 +30,7 @@
   apt:
     name: "{{ item }}"
   with_items: "{{ krb5_otp_pkg }}"
-  when: krb5-otp
+  when: krb5_otp
   tags:
     - installation
     - krb5-otp
@@ -39,7 +39,7 @@
   apt:
     name: "{{ item }}"
   with_items: "{{ krb5_kdc_ldap_pkg }}"
-  when: krb5-kdc-ldap
+  when: krb5_kdc_ldap
   tags:
     - installation
     - krb5-kdc-ldap
@@ -48,7 +48,7 @@
   apt:
     name: "{{ item }}"
   with_items: "{{ krb5_k5tls_pkg }}"
-  when: krb5-k5tls
+  when: krb5_k5tls
   tags:
     - installation
     - krb5-k5tls
@@ -57,7 +57,7 @@
   apt:
     name: "{{ item }}"
   with_items: "{{ krb5_sasl_support_pkg }}"
-  when: krb5-sasl-support
+  when: krb5_sasl_support
   tags:
     - installation
     - krb5-sasl-support
