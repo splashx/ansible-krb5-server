@@ -1,4 +1,4 @@
-ansible-krb5
+ansible-krb5-server
 =========
 
 This is a general Kerberos ansible role which installs and configure Kerberos KDC and Kerberos Admin Server and extra modules (PKINIT, OTP, SASL and LDAP support)
@@ -17,11 +17,11 @@ Role Variables
 
 The variables have nomenclature `kr5_kdc_[tag]`, where `[tag]` is the bracketless value of tags in the official [MIT Kerberos documentation](http://web.mit.edu/kerberos/krb5-current/doc/admin/conf_files/kdc_conf.html)
 
-Note empty defaults here means MIT Kerberos defaults will apply. Check the [documentation](http://web.mit.edu/kerberos/krb5-1.14/doc/admin/conf_files/kdc_conf.html#kdcdefaults) for MIT Kerberos defaults. 
+Note empty defaults here means MIT Kerberos defaults will apply. Check the [documentation](http://web.mit.edu/kerberos/krb5-1.14/doc/admin/conf_files/kdc_conf.html#kdcdefaults) for MIT Kerberos defaults.
 
 * **KDC and Admin Server**
 * `krb5-kdc`: [default value: `true`]: install the MIT Kerberos Key Server (KDC)
-* `krb5-admin-server`: [default value: `true`]: install the MIT Kerberos Admin Server 
+* `krb5-admin-server`: [default value: `true`]: install the MIT Kerberos Admin Server
 
 
 * **Plugins**
@@ -37,37 +37,37 @@ Note empty defaults here means MIT Kerberos defaults will apply. Check the [docu
 * **kdc.conf**
 * `krb5kdc_kdcdefaults.`: maps to MIT Kerberos `[kdcdefaults]` tag (kdc.conf)  
   * `acl_file`: [default value: `""`]  
-  * `database_module`: [default value: `""`] 
-  * `database_name`: [default value: `""`] 
-  * `default_principal_expiration`: [default value: `""`] 
-  * `default_principal_flags`: [default value: `[""]`] 
-  * `dict_file`: [default value: `""`] 
-  * `host_based_services`: [default value: `[""]`] 
-  * `iprop_enable`: [default value: `""`] 
-  * `iprop_master_ulogsize`: [default value: `""`] 
-  * `iprop_slave_poll`: [default value: `""`] 
+  * `database_module`: [default value: `""`]
+  * `database_name`: [default value: `""`]
+  * `default_principal_expiration`: [default value: `""`]
+  * `default_principal_flags`: [default value: `[""]`]
+  * `dict_file`: [default value: `""`]
+  * `host_based_services`: [default value: `[""]`]
+  * `iprop_enable`: [default value: `""`]
+  * `iprop_master_ulogsize`: [default value: `""`]
+  * `iprop_slave_poll`: [default value: `""`]
   * `iprop_port`: [default value: `""`]
   * `iprop_resync_timeout`: [default value: `""`]
   * `iprop_logfile`: [default value: `""`]
   * `kadmind_port`: [default value: `""`]
   * `key_stash_file`: [default value: `""`]
   * `kdc_max_dgram_reply_size`: [default value: `""`]
-  * `kdc_ports`: [default value: `number[]`: 
-  * `kdc_tcp_ports`: [default value: `number[]`: 
+  * `kdc_ports`: [default value: `number[]`:
+  * `kdc_tcp_ports`: [default value: `number[]`:
   * `master_key_name`: [default value: `""`]
-  * **`master_key_type`: [default value: `"aes256-cts-hmac-sha1-96"`]** 
+  * **`master_key_type`: [default value: `"aes256-cts-hmac-sha1-96"`]**
   * `max_life`: [default value: `""`]
   * `max_renewable_life`: [default value: `""`]
   * `no_host_referral`: [default value: `""`]
-  * **`des_crc_session_supported`: [default value: `false`]** 
+  * **`des_crc_session_supported`: [default value: `false`]**
   * `reject_bad_transit`: [default value: `""`]
-  * **`restrict_anonymous_to_tgt`: [default value: `true`]** 
-  * **`supported_enctypes`: [default value: `["aes256-cts-hmac-sha1-96", "normal camellia256-cts-cmac", "normal aes128-cts-hmac-sha1-96", "normal camellia128-cts-cmac", "normal" ]`]** 
+  * **`restrict_anonymous_to_tgt`: [default value: `true`]**
+  * **`supported_enctypes`: [default value: `["aes256-cts-hmac-sha1-96", "normal camellia256-cts-cmac", "normal aes128-cts-hmac-sha1-96", "normal camellia128-cts-cmac", "normal" ]`]**
 
 
 * `krb5kdc_realms.` (dictionary): maps to MIT Kerberos `[realms]` tag (kdc.conf)
   * `{n}`. - supports multiple realms
-    * **`name` (required) [default value: `"REALM.COM"`]**: A REALM name. 
+    * **`name` (required) [default value: `"REALM.COM"`]**: A REALM name.
     * `acl_file`: [default value: `""`]  
     * `database_module`: [default value: `""`]
     * `database_name`: [default value: `""`]
@@ -162,7 +162,7 @@ none
 Example Playbook
 ----------------
 
-Note the usage of two realms (REALM.COM and REALM2.COM) and how REALM2.COM uses the database_module value "REALM.COM". The realm "REALM.COM" doesn't require explicit value for database_value because the MIT kerberos defaults the value to the realm name (check the MIT Kerberos documentation for details). 
+Note the usage of two realms (REALM.COM and REALM2.COM) and how REALM2.COM uses the database_module value "REALM.COM". The realm "REALM.COM" doesn't require explicit value for database_value because the MIT kerberos defaults the value to the realm name (check the MIT Kerberos documentation for details).
 Also, this playbook doesn't install the Master Server (Admin Server)
 ```
 - hosts: kdc-slave
@@ -187,22 +187,22 @@ Also, this playbook doesn't install the Master Server (Admin Server)
             - services:
                 - '*'
         kadmind_port: 749
-        kdc_ports: 
-            - number: 
+        kdc_ports:
+            - number:
                 - 88
-        kdc_tcp_ports: 
-            - number: 
+        kdc_tcp_ports:
+            - number:
                 - 88
         master_key_type: "aes256-cts-hmac-sha1-96"
         max_life: "24h"
-        no_host_referral: 
-            - hosts: 
+        no_host_referral:
+            - hosts:
                 - hostA
                 - hostnameB
         des_crc_session_supported: false
         restrict_anonymous_to_tgt: true
-        supported_enctypes: 
-            - types: 
+        supported_enctypes:
+            - types:
                 - "aes256-cts-hmac-sha1-96"
                 - "normal camellia256-cts-cmac"
                 - "normal aes128-cts-hmac-sha1-96"
@@ -268,7 +268,7 @@ Also, this playbook doesn't install the Master Server (Admin Server)
         master_key_type: "aes256-cts-hmac-sha1-96"
         restrict_anonymous_to_tgt: true
         pkinit_identity: "PKCS11:/usr/local/lib/libetpkcs11.so"
-        pkinit_anchors: 
+        pkinit_anchors:
             - location:
               - "FILE:/etc/ssl/certs/ca-certificates.crt"
 
@@ -280,7 +280,7 @@ Also, this playbook doesn't install the Master Server (Admin Server)
           timeout: 5
 
   roles:
-      - { role:  ansible-krb5-kdc, tags: ["ansible-krb5-kdc "] }
+      - { role:  ansible-krb5-server, tags: ["ansible-krb5-server "] }
 ```
 
 License

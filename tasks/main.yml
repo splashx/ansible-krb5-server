@@ -12,20 +12,20 @@
   apt:
     name: "{{ item }}"
   with_items: "{{ krb5_admin_server_pkg }}"
-  when: krb5-admin-server 
+  when: krb5-admin-server
   tags:
     - installation
     - krb5-admin-server
-    
+
 - name: install krb5 PKINIT plugin
   apt:
     name: "{{ item }}"
   with_items: "{{ krb5_pkinit_pkg }}"
-  when: krb5-pkinit 
+  when: krb5-pkinit
   tags:
     - installation
     - krb5-pkinit
-    
+
 - name: install krb5 OTP plugin
   apt:
     name: "{{ item }}"
@@ -62,7 +62,7 @@
     - installation
     - krb5-sasl-support
 
-# tasks file for ansible-krb5
+# tasks file for ansible-krb5-server
 - name: update kdc.conf configuration file
   template:
     src: etc/krb5kdc/kdc.conf.j2
