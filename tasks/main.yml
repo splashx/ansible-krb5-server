@@ -44,7 +44,7 @@
     - installation
     - krb5-kdc-ldap
 
-- name: install krb5 KDC LDAP plugin
+- name: install krb5 KDC TLS plugin
   apt:
     name: "{{ item }}"
   with_items: "{{ krb5_k5tls_pkg }}"
@@ -53,14 +53,14 @@
     - installation
     - krb5-k5tls
 
-- name: install krb5 SALS support
+- name: install krb5 SASL support
   apt:
     name: "{{ item }}"
-  with_items: "{{ krb5_sals_support_pkg }}"
-  when: krb5-sals-support
+  with_items: "{{ krb5_sasl_support_pkg }}"
+  when: krb5-sasl-support
   tags:
     - installation
-    - krb5-sals-support
+    - krb5-sasl-support
 
 # tasks file for ansible-krb5
 - name: update kdc.conf configuration file
