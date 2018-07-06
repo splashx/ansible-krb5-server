@@ -1,5 +1,116 @@
 ---
 - hosts: localhost
   remote_user: root
+  vars:
+    krb5-admin-server: false
+    krb5kdc_kdcdefaults:
+      - kdc_max_dgram_reply_size: 4096
+        default_principal_flags:
+            - flags:
+                - "+proxy"
+                - "+preauth"
+                - "-renewable"
+                - "+postdateable"
+                - "+forwardable"
+                - "+tgt-based"
+                - "+proxiable"
+                - "+dup-skey"
+                - "+allow-tickets"
+                - "+service"
+        host_based_services:
+            - services:
+                - '*'
+        kadmind_port: 749
+        kdc_ports:
+            - number:
+                - 88
+        kdc_tcp_ports:
+            - number:
+                - 88
+        master_key_type: "aes256-cts-hmac-sha1-96"
+        max_life: "24h"
+        no_host_referral:
+            - hosts:
+                - hostA
+                - hostnameB
+        des_crc_session_supported: false
+        restrict_anonymous_to_tgt: true
+        supported_enctypes:
+            - types:
+                - "aes256-cts-hmac-sha1-96"
+                - "normal camellia256-cts-cmac"
+                - "normal aes128-cts-hmac-sha1-96"
+                - "normal camellia128-cts-cmac"
+                - "normal"
+
+    krb5kdc_dbdefaults:
+      - ldap_kerberos_container_dn: "cn=krbContainer,dc=example,dc=com"
+
+    krb5kdc_dbmodules:
+      - name: "REALM.COM"
+        db_library: "kldap"
+        ldap_kdc_dn: "cn=admin,dc=example,dc=com"
+        ldap_kadmind_dn: "cn=admin,dc=example,dc=com"
+        ldap_service_password_file: /etc/krb5kdc/service.keyfile
+        ldap_servers:
+          - hostname:
+              - "ldaps://ldap01.example.com"
+              - "ldaps://ldap02.example.com"
+        ldap_conns_per_server: 5
+
+    krb5kdc_realms:
+    - name: "REALM.COM"
+      database_name: "/var/lib/krb5kdc/principal"
+      admin_keytab: "FILE:/etc/krb5kdc/kadm5.keytab"
+      acl_file: "/etc/krb5kdc/kadm5.acl"
+      key_stash_file: "/etc/krb5kdc/stash"
+      kdc_ports:
+          - number:
+              - 88
+      kdc_tcp_ports:
+          - number:
+              - 88
+      master_key_type: "aes256-cts-hmac-sha1-96"
+      restrict_anonymous_to_tgt: true
+
+      - name: "REALM2.COM"
+        database_name: "/var/lib/krb5kdc/principal"
+        admin_keytab: "FILE:/etc/krb5kdc/kadm5.keytab"
+        acl_file: "/etc/krb5kdc/kadm5.acl"
+        key_stash_file: "/etc/krb5kdc/stash"
+        kdc_ports:
+            - number:
+                - 88
+        kdc_tcp_ports:
+            - number:
+                - 88
+        default_principal_flags:
+            - flags:
+                - '-proxy'
+                - "+preauth"
+                - "-renewable"
+                - "+postdateable"
+                - "+forwardable"
+                - "+tgt-based"
+                - "+proxiable"
+                - "+dup-skey"
+                - "+allow-tickets"
+                - "+service"
+        max_life: "10h 0m 0s"
+        database_module: "REALM.COM"
+        max_renewable_life: "7d 0h 0m 0s"
+        master_key_type: "aes256-cts-hmac-sha1-96"
+        restrict_anonymous_to_tgt: true
+        pkinit_identity: "PKCS11:/usr/local/lib/libetpkcs11.so"
+        pkinit_anchors:
+            - location:
+              - "FILE:/etc/ssl/certs/ca-certificates.crt"
+
+    krb5kdc_otp:
+        - name: "DEFAULT"
+          server: "10.10.10.200:1812"
+          secret: /etc/krb5kdc/radius.secret
+          strip_realm: true
+          timeout: 5
   roles:
     - ansible-krb5-server
