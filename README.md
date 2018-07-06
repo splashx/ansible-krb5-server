@@ -20,19 +20,19 @@ The variables have nomenclature `kr5_kdc_[tag]`, where `[tag]` is the bracketles
 Note empty defaults here means MIT Kerberos defaults will apply. Check the [documentation](http://web.mit.edu/kerberos/krb5-1.14/doc/admin/conf_files/kdc_conf.html#kdcdefaults) for MIT Kerberos defaults.
 
 * **KDC and Admin Server**
-* `krb5-kdc`: [default value: `true`]: install the MIT Kerberos Key Server (KDC)
-* `krb5-admin-server`: [default value: `true`]: install the MIT Kerberos Admin Server
+* `krb5_kdc`: [default value: `true`]: install the MIT Kerberos Key Server (KDC)
+* `krb5_admin_server`: [default value: `true`]: install the MIT Kerberos Admin Server
 
 
 * **Plugins**
-* `krb5-ldap-plugin`: [default value: `true`]: install the MIT Kerberos key server (KDC) LDAP plugin
-* `krb5-pkinit`: [default value: `true`]: install the PKINIT plugin for MIT Kerberos
-* `krb5-otp`: [default value: `true`]: install the OTP plugin for MIT Kerberos
-* `krb5-k5tls`: [default value: `true`]: install TLS plugin for MIT Kerberos
+* `krb5_ldap_plugin`: [default value: `true`]: install the MIT Kerberos key server (KDC) LDAP plugin
+* `krb5_pkinit`: [default value: `true`]: install the PKINIT plugin for MIT Kerberos
+* `krb5_otp`: [default value: `true`]: install the OTP plugin for MIT Kerberos
+* `krb5_k5tls`: [default value: `true`]: install TLS plugin for MIT Kerberos
 
 
 * **Extras**
-* `krb5-sasl-support`: [default value: `false`]: install support for SASL with Kerberos
+* `krb5_sasl_support`: [default value: `false`]: install support for SASL with Kerberos
 
 * **kdc.conf**
 * `krb5kdc_kdcdefaults.`: maps to MIT Kerberos `[kdcdefaults]` tag (kdc.conf)  
@@ -164,11 +164,12 @@ Example Playbook
 
 Note the usage of two realms (REALM.COM and REALM2.COM) and how REALM2.COM uses the database_module value "REALM.COM". The realm "REALM.COM" doesn't require explicit value for database_value because the MIT kerberos defaults the value to the realm name (check the MIT Kerberos documentation for details).
 Also, this playbook doesn't install the Master Server (Admin Server)
+
 ```
 - hosts: kdc-slave
   become: yes
   vars:
-    krb5-admin-server: false
+    krb5_admin_server: false
     krb5kdc_kdcdefaults:
       - kdc_max_dgram_reply_size: 4096
         default_principal_flags:
@@ -225,20 +226,19 @@ Also, this playbook doesn't install the Master Server (Admin Server)
         ldap_conns_per_server: 5
 
     krb5kdc_realms:
-    - name: "REALM.COM"
-      database_name: "/var/lib/krb5kdc/principal"
-      admin_keytab: "FILE:/etc/krb5kdc/kadm5.keytab"
-      acl_file: "/etc/krb5kdc/kadm5.acl"
-      key_stash_file: "/etc/krb5kdc/stash"
-      kdc_ports:
-          - number:
-              - 88
-      kdc_tcp_ports:
-          - number:
-              - 88
-      master_key_type: "aes256-cts-hmac-sha1-96"
-      restrict_anonymous_to_tgt: true
-
+      - name: "REALM.COM"
+        database_name: "/var/lib/krb5kdc/principal"
+        admin_keytab: "FILE:/etc/krb5kdc/kadm5.keytab"
+        acl_file: "/etc/krb5kdc/kadm5.acl"
+        key_stash_file: "/etc/krb5kdc/stash"
+        kdc_ports:
+            - number:
+                - 88
+        kdc_tcp_ports:
+            - number:
+                - 88
+        master_key_type: "aes256-cts-hmac-sha1-96"
+        restrict_anonymous_to_tgt: true
       - name: "REALM2.COM"
         database_name: "/var/lib/krb5kdc/principal"
         admin_keytab: "FILE:/etc/krb5kdc/kadm5.keytab"
@@ -261,7 +261,7 @@ Also, this playbook doesn't install the Master Server (Admin Server)
                 - "+proxiable"
                 - "+dup-skey"
                 - "+allow-tickets"
-                - "+service"   
+                - "+service"
         max_life: "10h 0m 0s"
         database_module: "REALM.COM"
         max_renewable_life: "7d 0h 0m 0s"
