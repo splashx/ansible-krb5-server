@@ -7,7 +7,7 @@ krb5-pkinit: true
 krb5-otp: true
 krb5-kdc-ldap: true
 krb5-k5tls: false
-krb5-sals-support: true
+krb5-sasl-support: true
 
 # the vars below should follow the name of the control var above, - replaced by _ and append _pkg
 krb5_kdc_pkg:
@@ -29,7 +29,7 @@ krb5_otp_pkg:
 krb5_k5tls_pkg:
   - krb5-k5tls
 
-krb5_sals_support_pkg:
+krb5_sasl_support_pkg:
   - libsasl2-modules-gssapi-mit
   - libauthen-sasl-perl
   - libauthen-sasl-cyrus-perl
