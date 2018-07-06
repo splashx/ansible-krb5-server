@@ -1,4 +1,4 @@
-_---
+---
 - name: install krb5-kdc
   apt:
     name: "{{ item }}"
