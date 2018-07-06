@@ -1,6 +1,8 @@
 ansible-krb5-server
 =========
 
+[![Build Status](https://travis-ci.org/splashx/ansible-krb5-server.svg?branch=master)](https://travis-ci.org/splashx/ansible-krb5-server)
+
 This is a general Kerberos ansible role which installs and configure Kerberos KDC and Kerberos Admin Server and extra modules (PKINIT, OTP, SASL and LDAP support)
 
 The templates are based on krbkdc 1.15 so if you're using a newer version of Kerberos and settings are missing, pull request.
